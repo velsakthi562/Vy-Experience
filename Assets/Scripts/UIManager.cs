@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
     }
     public void ChangeMenu()
     {
-        mainMenu.DOAnchorPos(new Vector2(-1145, 0), 0.25f);
+        mainMenu.DOAnchorPos(new Vector2(-1145, 0), 0.50f);
         contentMenu.DOAnchorPos(new Vector2(0, 0), 0.25f);
     }
     public void BackMenu()
