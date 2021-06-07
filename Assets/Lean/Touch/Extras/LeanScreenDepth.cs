@@ -38,7 +38,7 @@ namespace Lean.Touch
 		/// <summary>The layers used in the raycast.</summary>
 		public LayerMask Layers;
 
-		/// <summary>Toolips are modified at runtime based on Conversion setting.</summary>
+		/// <summary>Tooltips are modified at runtime based on Conversion setting.</summary>
 		public float Distance;
 
 		/// <summary>When performing a ScreenDepth conversion, the converted point can have a normal associated with it. This stores that.</summary>
@@ -283,7 +283,7 @@ namespace Lean.Touch
 }
 
 #if UNITY_EDITOR
-namespace Lean.Touch.Inspector
+namespace Lean.Touch.Editor
 {
 	using UnityEditor;
 
@@ -327,9 +327,9 @@ namespace Lean.Touch.Inspector
 				{
 					case LeanScreenDepth.ConversionType.FixedDistance:
 					{
-						var color = GUI.color; if (property.FindPropertyRelative("Distance").floatValue == 0.0f) GUI.color = Color.red;
+						LeanEditor.BeginError(property.FindPropertyRelative("Distance").floatValue == 0.0f);
 						DrawProperty(ref rect, property, label, "Distance", "Distance", "The world space distance from the camera the point will be placed. This should be greater than 0.");
-						GUI.color = color;
+						LeanEditor.EndError();
 					}
 					break;
 
@@ -341,9 +341,9 @@ namespace Lean.Touch.Inspector
 
 					case LeanScreenDepth.ConversionType.PhysicsRaycast:
 					{
-						var color = GUI.color; if (property.FindPropertyRelative("Layers").intValue == 0) GUI.color = Color.red;
+						LeanEditor.BeginError(property.FindPropertyRelative("Layers").intValue == 0);
 							DrawProperty(ref rect, property, label, "Layers", "The layers used in the raycast.");
-						GUI.color = color;
+						LeanEditor.EndError();
 						DrawProperty(ref rect, property, label, "Distance", "Offset", "The world space offset from the raycast hit point.");
 					}
 					break;

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Lean.Common
 {
@@ -154,38 +154,40 @@ namespace Lean.Common
 }
 
 #if UNITY_EDITOR
-namespace Lean.Common.Inspector
+namespace Lean.Common.Editor
 {
-	using UnityEditor;
+	using TARGET = LeanPlane;
 
-	[CanEditMultipleObjects]
-	[CustomEditor(typeof(LeanPlane), true)]
-	public class LeanPlane_Inspector : LeanInspector<LeanPlane>
+	[UnityEditor.CanEditMultipleObjects]
+	[UnityEditor.CustomEditor(typeof(TARGET))]
+	public class LeanPlane_Editor : LeanEditor
 	{
-		protected override void DrawInspector()
+		protected override void OnInspector()
 		{
+			TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);
+
 			Draw("ClampX", "Should the plane be clamped on the x axis?");
 
-			if (Any(t => t.ClampX == true))
+			if (Any(tgts, t => t.ClampX == true))
 			{
-				EditorGUI.indentLevel++;
+				BeginIndent();
 					Draw("MinX", "", "Min");
 					Draw("MaxX", "", "Max");
-				EditorGUI.indentLevel--;
+				EndIndent();
 
-				EditorGUILayout.Separator();
+				Separator();
 			}
 
 			Draw("ClampY", "Should the plane be clamped on the y axis?");
 
-			if (Any(t => t.ClampX == true))
+			if (Any(tgts, t => t.ClampX == true))
 			{
-				EditorGUI.indentLevel++;
+				BeginIndent();
 					Draw("MinY", "", "Min");
 					Draw("MaxY", "", "Max");
-				EditorGUI.indentLevel--;
+				EndIndent();
 
-				EditorGUILayout.Separator();
+				Separator();
 			}
 
 			Draw("SnapX", "The distance between each position snap on the x axis.");

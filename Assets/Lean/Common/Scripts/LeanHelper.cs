@@ -15,7 +15,7 @@ namespace Lean.Common
 
 		public const string PlusHelpUrlPrefix = "https://carloswilkes.github.io/Documentation/LeanCommonPlus#";
 
-		public const string ComponentPathPrefix = "Lean/";
+		public const string ComponentPathPrefix = "Lean/Common/Lean ";
 
 #if UNITY_EDITOR
 		/// <summary>This method creates an empty GameObject prefab at the current asset folder</summary>

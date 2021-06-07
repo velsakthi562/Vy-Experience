@@ -1,6 +1,6 @@
 using UnityEngine;
-using Lean.Common;
 using FSA = UnityEngine.Serialization.FormerlySerializedAsAttribute;
+using Lean.Common;
 
 namespace Lean.Touch
 {
@@ -12,30 +12,24 @@ namespace Lean.Touch
 		/// <summary>The method used to find fingers to use with this component. See LeanFingerFilter documentation for more information.</summary>
 		public LeanFingerFilter Use = new LeanFingerFilter(true);
 
-		/// <summary>The camera the translation will be calculated using.\n\nNone = MainCamera.</summary>
-		[Tooltip("The camera the translation will be calculated using.\n\nNone = MainCamera.")]
-		public Camera Camera;
+		/// <summary>The camera the translation will be calculated using.
+		/// None/null = MainCamera.</summary>
+		public Camera Camera { set { _camera = value; } get { return _camera; } } [FSA("Camera")] [SerializeField] private Camera _camera;
 
-		/// <summary>The sensitivity of the translation.
-		/// 1 = Default.
-		/// 2 = Double.</summary>
-		[Tooltip("The sensitivity of the translation.\n\n1 = Default.\n2 = Double.")]
-		public float Sensitivity = 1.0f;
+		/// <summary>The movement speed will be multiplied by this.
+		/// -1 = Inverted Controls.</summary>
+		public float Sensitivity { set { sensitivity = value; } get { return sensitivity; } } [FSA("Sensitivity")] [SerializeField] private float sensitivity = 1.0f;
 
 		/// <summary>If you want this component to change smoothly over time, then this allows you to control how quick the changes reach their target value.
 		/// -1 = Instantly change.
 		/// 1 = Slowly change.
 		/// 10 = Quickly change.</summary>
-		[Tooltip("If you want this component to change smoothly over time, then this allows you to control how quick the changes reach their target value.\n\n-1 = Instantly change.\n\n1 = Slowly change.\n\n10 = Quickly change.")]
-		[FSA("Dampening")] public float Damping = -1.0f;
+		public float Damping { set { damping = value; } get { return damping; } } [FSA("Damping")] [FSA("Dampening")] [SerializeField] private float damping = -1.0f;
 
-		/// <summary>This allows you to control how much momenum is retained when the dragging fingers are all released.
+		/// <summary>This allows you to control how much momentum is retained when the dragging fingers are all released.
 		/// NOTE: This requires <b>Dampening</b> to be above 0.</summary>
-		[Tooltip("This allows you to control how much momenum is retained when the dragging fingers are all released.\n\nNOTE: This requires <b>Dampening</b> to be above 0.")]
-		[Range(0.0f, 1.0f)]
-		public float Inertia;
+		public float Inertia { set { inertia = value; } get { return inertia; } } [FSA("Inertia")] [SerializeField] [Range(0.0f, 1.0f)] private float inertia;
 
-		[HideInInspector]
 		[SerializeField]
 		private Vector3 remainingTranslation;
 
@@ -75,7 +69,7 @@ namespace Lean.Touch
 			var oldPosition = transform.localPosition;
 
 			// Get the fingers we want to use
-			var fingers = Use.GetFingers();
+			var fingers = Use.UpdateAndGetFingers();
 
 			// Calculate the screenDelta value based on these fingers
 			var screenDelta = LeanGesture.GetScreenDelta(fingers);
@@ -116,7 +110,7 @@ namespace Lean.Touch
 
 		private void TranslateUI(Vector2 screenDelta)
 		{
-			var camera = Camera;
+			var camera = this._camera;
 
 			if (camera == null)
 			{
@@ -146,7 +140,7 @@ namespace Lean.Touch
 		private void Translate(Vector2 screenDelta)
 		{
 			// Make sure the camera exists
-			var camera = LeanHelper.GetCamera(Camera, gameObject);
+			var camera = LeanHelper.GetCamera(this._camera, gameObject);
 
 			if (camera != null)
 			{
@@ -166,3 +160,26 @@ namespace Lean.Touch
 		}
 	}
 }
+
+#if UNITY_EDITOR
+namespace Lean.Touch.Editor
+{
+	using TARGET = LeanDragTranslate;
+
+	[UnityEditor.CanEditMultipleObjects]
+	[UnityEditor.CustomEditor(typeof(TARGET), true)]
+	public class LeanDragTranslate_Editor : LeanEditor
+	{
+		protected override void OnInspector()
+		{
+			TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);
+
+			Draw("Use");
+			Draw("_camera", "The camera the translation will be calculated using.\n\nNone/null = MainCamera.");
+			Draw("sensitivity", "The movement speed will be multiplied by this.\n\n-1 = Inverted Controls.");
+			Draw("damping", "If you want this component to change smoothly over time, then this allows you to control how quick the changes reach their target value.\n\n-1 = Instantly change.\n\n1 = Slowly change.\n\n10 = Quickly change.");
+			Draw("inertia", "This allows you to control how much momentum is retained when the dragging fingers are all released.\n\nNOTE: This requires <b>Damping</b> to be above 0.");
+		}
+	}
+}
+#endif

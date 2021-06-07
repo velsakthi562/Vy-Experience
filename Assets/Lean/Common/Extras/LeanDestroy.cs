@@ -1,64 +1,100 @@
 using UnityEngine;
+using FSA = UnityEngine.Serialization.FormerlySerializedAsAttribute;
 
 namespace Lean.Common
 {
-	/// <summary>This component will automatically destroy a GameObject after the specified amount of time.
-	/// NOTE: If <b>Seconds</b> is set to -1, then you must manually call the  <b>DestroyNow</b> method from somewhere.</summary>
+	/// <summary>This component allows you to destroy a GameObject.</summary>
 	[HelpURL(LeanHelper.HelpUrlPrefix + "LeanDestroy")]
 	[AddComponentMenu(LeanHelper.ComponentPathPrefix + "Destroy")]
 	public class LeanDestroy : MonoBehaviour
 	{
+		public enum ExecuteType
+		{
+			OnFirstFrame,
+			AfterDelay,
+			AfterDelayUnscaled,
+			Manually
+		}
+
+		/// <summary>This allows you to control when the <b>Target</b> GameObject will be destroyed.
+		/// OnFirstFrame = As soon as Update runs (this component must be enabled).
+		/// AfterDelay = After the specified amount of <b>Seconds</b> has elapsed.
+		/// AfterDelayUnscaled = The same as AfterDelay, but using unscaledDeltaTime.
+		/// Manually = You must manually call the <b>DestroyNow</b> method.</summary>
+		public ExecuteType Execute { set { execute = value; } get { return execute; } } [SerializeField] private ExecuteType execute = ExecuteType.Manually;
+
 		/// <summary>The GameObject that will be destroyed.
 		/// None/null = This GameObject.</summary>
-		public GameObject Target;
+		public GameObject Target { set { target = value; } get { return target; } } [FSA("Target")] [SerializeField] private GameObject target;
 
-		/// <summary>The amount of seconds remaining before this GameObject gets destroyed.
-		/// -1 = You must manually call the DestroyNow method.</summary>
-		public float Seconds = -1.0f;
+		/// <summary>The amount of seconds remaining until the GameObject is destroyed.</summary>
+		public float Seconds { set { seconds = value; } get { return seconds; } } [FSA("Seconds")] [SerializeField] private float seconds = -1.0f;
 
 		protected virtual void Update()
 		{
-			if (Seconds >= 0.0f)
+			switch (execute)
 			{
-				Seconds -= Time.deltaTime;
-
-				if (Seconds <= 0.0f)
+				case ExecuteType.OnFirstFrame:
 				{
 					DestroyNow();
 				}
+				break;
+
+				case ExecuteType.AfterDelay:
+				{
+					seconds -= Time.deltaTime;
+
+					if (seconds <= 0.0f)
+					{
+						DestroyNow();
+					}
+				}
+				break;
+
+				case ExecuteType.AfterDelayUnscaled:
+				{
+					seconds -= Time.unscaledDeltaTime;
+
+					if (seconds <= 0.0f)
+					{
+						DestroyNow();
+					}
+				}
+				break;
 			}
 		}
 
-		/// <summary>You can manually call this method to destroy the current GameObject now.</summary>
+		/// <summary>You can manually call this method to destroy the specified GameObject immediately.</summary>
 		public void DestroyNow()
 		{
-			var finalTarget = Target;
+			execute = ExecuteType.Manually;
 
-			if (finalTarget == null)
-			{
-				finalTarget = gameObject;
-			}
-
-			Destroy(finalTarget);
+			Destroy(target != null ? target : gameObject);
 		}
 	}
 }
 
 #if UNITY_EDITOR
-namespace Lean.Common.Inspector
+namespace Lean.Common.Editor
 {
-	using UnityEditor;
+	using TARGET = LeanDestroy;
 
-	[CanEditMultipleObjects]
-	[CustomEditor(typeof(LeanDestroy), true)]
-	public class LeanDestroy_Inspector : LeanInspector<LeanDestroy>
+	[UnityEditor.CanEditMultipleObjects]
+	[UnityEditor.CustomEditor(typeof(TARGET))]
+	public class LeanDestroy_Editor : LeanEditor
 	{
-		private bool showUnusedEvents;
-
-		protected override void DrawInspector()
+		protected override void OnInspector()
 		{
-			Draw("Target", "The GameObject that will be destroyed.\n\nNone/null = This GameObject.");
-			Draw("Seconds", "The amount of seconds remaining before this GameObject gets destroyed.\n\n-1 = You must manually call the DestroyNow method.");
+			TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);
+
+			Draw("target", "The GameObject that will be destroyed.\n\nNone/null = This GameObject.");
+			Draw("execute", "This allows you to control when the <b>Target</b> GameObject will be destroyed.\n\nOnFirstFrame = As soon as Update runs (this component must be enabled).\n\nAfterDelay = After the specified amount of <b>Seconds</b> has elapsed.\n\nAfterDelayUnscaled = The same as AfterDelay, but using unscaledDeltaTime.\n\nManually = You must manually call the <b>DestroyNow</b> method.");
+			if (Any(tgts, t => t.Execute == LeanDestroy.ExecuteType.AfterDelay || t.Execute == LeanDestroy.ExecuteType.AfterDelayUnscaled))
+			{
+				BeginIndent();
+					Draw("seconds", "The amount of seconds remaining until the GameObject is destroyed.");
+				EndIndent();
+			}
 		}
 	}
 }

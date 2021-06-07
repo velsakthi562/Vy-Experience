@@ -17,23 +17,18 @@ namespace Lean.Touch
 
 		/// <summary>The movement speed will be multiplied by this.
 		/// -1 = Inverted Controls.</summary>
-		[Tooltip("The movement speed will be multiplied by this.\n\n-1 = Inverted Controls.")]
-		public float Sensitivity = 1.0f;
+		public float Sensitivity { set { sensitivity = value; } get { return sensitivity; } } [FSA("Sensitivity")] [SerializeField] private float sensitivity = 1.0f;
 
 		/// <summary>If you want this component to change smoothly over time, then this allows you to control how quick the changes reach their target value.
 		/// -1 = Instantly change.
 		/// 1 = Slowly change.
 		/// 10 = Quickly change.</summary>
-		[Tooltip("If you want this component to change smoothly over time, then this allows you to control how quick the changes reach their target value.\n\n-1 = Instantly change.\n\n1 = Slowly change.\n\n10 = Quickly change.")]
-		[FSA("Dampening")] public float Damping = -1.0f;
+		public float Damping { set { damping = value; } get { return damping; } } [FSA("Damping")] [FSA("Dampening")] [SerializeField] private float damping = -1.0f;
 
-		/// <summary>This allows you to control how much momenum is retained when the dragging fingers are all released.
-		/// NOTE: This requires <b>Dampening</b> to be above 0.</summary>
-		[Tooltip("This allows you to control how much momenum is retained when the dragging fingers are all released.\n\nNOTE: This requires <b>Dampening</b> to be above 0.")]
-		[Range(0.0f, 1.0f)]
-		public float Inertia;
+		/// <summary>This allows you to control how much momentum is retained when the dragging fingers are all released.
+		/// NOTE: This requires <b>Damping</b> to be above 0.</summary>
+		public float Inertia { set { inertia = value; } get { return inertia; } } [FSA("Inertia")] [SerializeField] [Range(0.0f, 1.0f)] private float inertia;
 
-		[HideInInspector]
 		[SerializeField]
 		private Vector3 remainingDelta;
 
@@ -98,7 +93,7 @@ namespace Lean.Touch
 		protected virtual void LateUpdate()
 		{
 			// Get the fingers we want to use
-			var fingers = Use.GetFingers();
+			var fingers = Use.UpdateAndGetFingers();
 
 			// Get the last and current screen point of all fingers
 			var lastScreenPoint = LeanGesture.GetLastScreenCenter(fingers);
@@ -111,13 +106,13 @@ namespace Lean.Touch
 			var oldPosition = transform.localPosition;
 
 			// Pan the camera based on the world delta
-			transform.position -= worldDelta * Sensitivity;
+			transform.position -= worldDelta * sensitivity;
 
 			// Add to remainingDelta
 			remainingDelta += transform.localPosition - oldPosition;
 
 			// Get t value
-			var factor = LeanHelper.GetDampenFactor(Damping, Time.deltaTime);
+			var factor = LeanHelper.GetDampenFactor(damping, Time.deltaTime);
 
 			// Dampen remainingDelta
 			var newRemainingDelta = Vector3.Lerp(remainingDelta, Vector3.zero, factor);
@@ -125,9 +120,9 @@ namespace Lean.Touch
 			// Shift this position by the change in delta
 			transform.localPosition = oldPosition + remainingDelta - newRemainingDelta;
 
-			if (fingers.Count == 0 && Inertia > 0.0f && Damping > 0.0f)
+			if (fingers.Count == 0 && inertia > 0.0f && damping > 0.0f)
 			{
-				newRemainingDelta = Vector3.Lerp(newRemainingDelta, remainingDelta, Inertia);
+				newRemainingDelta = Vector3.Lerp(newRemainingDelta, remainingDelta, inertia);
 			}
 
 			// Update remainingDelta with the dampened value
@@ -135,3 +130,26 @@ namespace Lean.Touch
 		}
 	}
 }
+
+#if UNITY_EDITOR
+namespace Lean.Touch.Editor
+{
+	using TARGET = LeanDragCamera;
+
+	[UnityEditor.CanEditMultipleObjects]
+	[UnityEditor.CustomEditor(typeof(TARGET), true)]
+	public class LeanDragCamera_Editor : LeanEditor
+	{
+		protected override void OnInspector()
+		{
+			TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);
+
+			Draw("Use");
+			Draw("ScreenDepth");
+			Draw("sensitivity", "The movement speed will be multiplied by this.\n\n-1 = Inverted Controls.");
+			Draw("damping", "If you want this component to change smoothly over time, then this allows you to control how quick the changes reach their target value.\n\n-1 = Instantly change.\n\n1 = Slowly change.\n\n10 = Quickly change.");
+			Draw("inertia", "This allows you to control how much momentum is retained when the dragging fingers are all released.\n\nNOTE: This requires <b>Damping</b> to be above 0.");
+		}
+	}
+}
+#endif

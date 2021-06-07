@@ -5,12 +5,24 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/AR.unity
     guid: fd9aae71617280f40970ebd421fc1406
-  - enabled: 0
+  - enabled: 1
+    path: Assets/Scenes/VyExperience Ui.unity
+    guid: c4b354ae81e5bc5479f1eadf581e02ee
+  - enabled: 1
+    path: Assets/Scenes/ARDemo.unity
+    guid: 32463e6cc66baeb4bbba7aff76b8411c
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 3f681876472f01b40a41a361e1e68ab6
+  - enabled: 1
+    path: Assets/Scenes/ARDemo 1.unity
+    guid: 9e9b6ffe55151f24286ff20aee91cb2a
+  - enabled: 1
+    path: Assets/Scenes/ARDemo 2.unity
+    guid: 8b6b24ad751f32949bed6b5102c58a1f
   m_configObjects:
     com.unity.xr.arcore.PlayerSettings: {fileID: 11400000, guid: ba5ab0eb886441f49b37323d247eb3a8,
       type: 2}

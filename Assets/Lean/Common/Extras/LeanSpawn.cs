@@ -51,21 +51,23 @@ namespace Lean.Common
 }
 
 #if UNITY_EDITOR
-namespace Lean.Common.Inspector
+namespace Lean.Common.Editor
 {
-	using UnityEditor;
+	using TARGET = LeanSpawn;
 
-	[CanEditMultipleObjects]
-	[CustomEditor(typeof(LeanSpawn), true)]
-	public class LeanSpawn_Inspector : LeanInspector<LeanSpawn>
+	[UnityEditor.CanEditMultipleObjects]
+	[UnityEditor.CustomEditor(typeof(TARGET))]
+	public class LeanSpawn_Editor : LeanEditor
 	{
 		private bool showUnusedEvents;
 
-		protected override void DrawInspector()
+		protected override void OnInspector()
 		{
+			TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);
+
 			Draw("Prefab", "The prefab that this component can spawn.");
-			Draw("Prefab", "If you call Spawn(), where should the position come from?");
-			Draw("Prefab", "If you call Spawn(), where should the rotation come from?");
+			Draw("DefaultPosition", "If you call Spawn(), where should the position come from?");
+			Draw("DefaultRotation", "If you call Spawn(), where should the rotation come from?");
 		}
 	}
 }
