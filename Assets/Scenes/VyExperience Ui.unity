@@ -529,8 +529,8 @@ RectTransform:
   m_Children:
   - {fileID: 283700460}
   - {fileID: 1399251686}
-  m_Father: {fileID: 1058198568}
-  m_RootOrder: 0
+  m_Father: {fileID: 835830713}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -960,7 +960,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 754574297}
   contentMenu: {fileID: 835830713}
-  viewMenu: {fileID: 2114121350}
 --- !u!4 &368066441
 Transform:
   m_ObjectHideFlags: 0
@@ -973,7 +972,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &368066442
 MonoBehaviour:
@@ -1246,7 +1245,7 @@ RectTransform:
   - {fileID: 1355999342}
   - {fileID: 903515224}
   m_Father: {fileID: 835830713}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -1648,6 +1647,7 @@ GameObject:
   - component: {fileID: 835830713}
   - component: {fileID: 835830715}
   - component: {fileID: 835830714}
+  - component: {fileID: 835830716}
   m_Layer: 5
   m_Name: Contennt Menu
   m_TagString: Untagged
@@ -1668,6 +1668,7 @@ RectTransform:
   m_Children:
   - {fileID: 1058198568}
   - {fileID: 502715100}
+  - {fileID: 71293118}
   - {fileID: 1399411953}
   - {fileID: 517303364}
   - {fileID: 885278372}
@@ -1717,6 +1718,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 835830712}
   m_CullTransparentMesh: 0
+--- !u!114 &835830716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835830712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 758cc2a45c24ef54cacb75ab431179f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: {fileID: 48816824}
+  descrption: {fileID: 1096646778}
+  image: {fileID: 1058198569}
 --- !u!1 &885278371
 GameObject:
   m_ObjectHideFlags: 0
@@ -1750,7 +1766,7 @@ RectTransform:
   - {fileID: 2058368469}
   - {fileID: 9072759}
   m_Father: {fileID: 835830713}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.095370375, y: 0.3568333}
   m_AnchorMax: {x: 0.90833336, y: 0.5418959}
@@ -2220,11 +2236,10 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1058198567}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 71293118}
+  m_Children: []
   m_Father: {fileID: 835830713}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2390,8 +2405,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -90}
-  m_SizeDelta: {x: 0, y: -180}
+  m_AnchoredPosition: {x: 0, y: -64.4}
+  m_SizeDelta: {x: 0, y: -231.21722}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1096646778
 MonoBehaviour:
@@ -2412,13 +2427,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Augmented reality (AR) is an interactive experience of a real-world environment
-    where the objects that reside in the real world are enhanced\n by computer-generated
+  m_text: 'Augmented reality (AR) is an interactive experience of a real-world environment
+    where the objects that reside in the real world are enhancedby computer-generated
     perceptual information, sometimes across multiple sensory modalities, including
-    visual, auditory, haptic, somatosensory and olfactory. AR can be defined as a
-    system that fulfills three basic features: a combination of real and virtual
-    worlds, real-time interaction, and accurate3D registration of virtual and real
-    objects."
+    visual, auditory, haptic, somatosensory and olfactory. '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2481,7 +2493,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: -3.9398193}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2794,6 +2806,58 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1333156645}
   m_CullTransparentMesh: 0
+--- !u!1 &1335354905 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7160269361749782100, guid: 7115c170124057d4ca89fbc195fd8923,
+    type: 3}
+  m_PrefabInstance: {fileID: 7160269360765730884}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1335354908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335354905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3117b8f164e469b428efd14111dffdf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    items:
+    - title: Grey Sofa
+      description: Lexus Dark Grey Jute Fabric 3 Seater Sofa Is Made Of Acacia Wood.
+        It Has An Elegant Design Which Enhances The Interior Decor Of Your Living
+        Room.
+      image: {fileID: 21300000, guid: 45e5ecaac56bf0d4f9012f315159603e, type: 3}
+    - title: Round Wooden Table
+      description: Lexus Dark Grey Jute Fabric 3 Seater Sofa Is Made Of Acacia Wood.
+        It Has An Elegant Design Which Enhances The Interior Decor Of Your Living
+        Room.
+      image: {fileID: 21300000, guid: bb4a7ac9d24dd2c40bcb8003645c4c24, type: 3}
+    - title: Fabric Chair
+      description: Lexus Dark Grey Jute Fabric 3 Seater Sofa Is Made Of Acacia Wood.
+        It Has An Elegant Design Which Enhances The Interior Decor Of Your Living
+        Room.
+      image: {fileID: 21300000, guid: d29e038c78e71764095ab5d8c7c6290a, type: 3}
+    - title: Blue Sofa
+      description: Lexus Dark Grey Jute Fabric 3 Seater Sofa Is Made Of Acacia Wood.
+        It Has An Elegant Design Which Enhances The Interior Decor Of Your Living
+        Room.
+      image: {fileID: 21300000, guid: dc2d19c708cb745428fe2559b8a39d07, type: 3}
+    - title: Blue Sofa
+      description: Lexus Dark Grey Jute Fabric 3 Seater Sofa Is Made Of Acacia Wood.
+        It Has An Elegant Design Which Enhances The Interior Decor Of Your Living
+        Room.
+      image: {fileID: 21300000, guid: 4640691eaf71f664db95fe1426d4e4a2, type: 3}
+    - title: Blue Sofa
+      description: Living Room.rey Jute Fabric 3 Seater Sofa Is Made Of Acacia Wood.
+        It Has An Elegant Design Which Enhances The Interior Decor Of Your Living
+        Room.
+      image: {fileID: 21300000, guid: 66189c05c9b6c23459efcacf914a7722, type: 3}
+  contentPrefab: {fileID: 112845622152800699, guid: 3e70109bdbf9abb4a9d5db6e3cb7e295,
+    type: 3}
 --- !u!1 &1355999341
 GameObject:
   m_ObjectHideFlags: 0
@@ -3065,7 +3129,7 @@ RectTransform:
   - {fileID: 468326206}
   - {fileID: 1007068339}
   m_Father: {fileID: 835830713}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05, y: 0.17852084}
   m_AnchorMax: {x: 0.35262966, y: 0.23077083}
@@ -3796,7 +3860,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2030776472
 GameObject:
@@ -4850,6 +4914,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2601221693377474547, guid: 7115c170124057d4ca89fbc195fd8923,
+        type: 3}
+      propertyPath: m_text
+      value: Lexus Dark Grey Jute Fabric 3 Seater Sofa Is Made Of Acacia Wood. It
+        Has An Elegant Design Which Enhances The Interior Decor Of Your Living Room.
+      objectReference: {fileID: 0}
+    - target: {fileID: 2601221693377474547, guid: 7115c170124057d4ca89fbc195fd8923,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2601221693377474547, guid: 7115c170124057d4ca89fbc195fd8923,
+        type: 3}
+      propertyPath: m_fontSizeMax
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 2883167320992664074, guid: 7115c170124057d4ca89fbc195fd8923,
         type: 3}
       propertyPath: m_RootOrder
@@ -4865,6 +4945,46 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5382175721920117559, guid: 7115c170124057d4ca89fbc195fd8923,
+        type: 3}
+      propertyPath: m_text
+      value: Blue Sofa
+      objectReference: {fileID: 0}
+    - target: {fileID: 5382175721920117559, guid: 7115c170124057d4ca89fbc195fd8923,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 44.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5382175722325944648, guid: 7115c170124057d4ca89fbc195fd8923,
+        type: 3}
+      propertyPath: m_text
+      value: Round Wooden Table
+      objectReference: {fileID: 0}
+    - target: {fileID: 5382175722325944648, guid: 7115c170124057d4ca89fbc195fd8923,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 44.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5382175722426285824, guid: 7115c170124057d4ca89fbc195fd8923,
+        type: 3}
+      propertyPath: m_text
+      value: Fabric Chair
+      objectReference: {fileID: 0}
+    - target: {fileID: 5382175722426285824, guid: 7115c170124057d4ca89fbc195fd8923,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 44.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5382175723237694038, guid: 7115c170124057d4ca89fbc195fd8923,
+        type: 3}
+      propertyPath: m_text
+      value: Grey Sofa
+      objectReference: {fileID: 0}
+    - target: {fileID: 5382175723237694038, guid: 7115c170124057d4ca89fbc195fd8923,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 44.75
+      objectReference: {fileID: 0}
     - target: {fileID: 5735271578073430304, guid: 7115c170124057d4ca89fbc195fd8923,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -4874,21 +4994,22 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 368066440}
+      objectReference: {fileID: 11500000, guid: b905cbb56498b14439ef588dcdf03a4c,
+        type: 3}
     - target: {fileID: 5735271578073430304, guid: 7115c170124057d4ca89fbc195fd8923,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeMenu
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5735271578073430304, guid: 7115c170124057d4ca89fbc195fd8923,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5735271578073430304, guid: 7115c170124057d4ca89fbc195fd8923,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5735271578241789800, guid: 7115c170124057d4ca89fbc195fd8923,
         type: 3}
@@ -5296,6 +5417,26 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.9372549
       objectReference: {fileID: 0}
+    - target: {fileID: 7160269362039554987, guid: 7115c170124057d4ca89fbc195fd8923,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7160269362039554987, guid: 7115c170124057d4ca89fbc195fd8923,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7160269362039554987, guid: 7115c170124057d4ca89fbc195fd8923,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 368066439}
+    - target: {fileID: 7160269362039554987, guid: 7115c170124057d4ca89fbc195fd8923,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7160269362039554991, guid: 7115c170124057d4ca89fbc195fd8923,
         type: 3}
       propertyPath: m_SizeDelta.y
@@ -5548,7 +5689,7 @@ RectTransform:
   - {fileID: 2790980334434905891}
   - {fileID: 9170886917543285883}
   m_Father: {fileID: 835830713}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}

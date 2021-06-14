@@ -6,12 +6,13 @@ using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
-    public RectTransform mainMenu, contentMenu, viewMenu;
+    public RectTransform mainMenu, contentMenu;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        
         mainMenu.DOAnchorPos(Vector2.zero, 0.25f);
 
     }

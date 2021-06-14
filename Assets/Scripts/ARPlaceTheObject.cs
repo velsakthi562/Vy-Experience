@@ -12,6 +12,7 @@ public class ARPlaceTheObject : MonoBehaviour
 
     private GameObject spawnObject;
     private ARRaycastManager raycastManager;
+
     //private List<GameObject> placedPrefabList = new List<GameObject>();
 
     //[SerializeField]
